@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
+from .models import Note
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -34,3 +35,8 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+class NoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Note
+        fields = "__All__"
+        extra_kwargs = {"author": {"read_only": True}}
